@@ -2,7 +2,7 @@
 set -e
 
 NETWORK=${1:-testnet}
-CONTRACT=${2:-ledgerlens-score}
+CONTRACT=${2:-veridex-score}
 
 echo "Deploying $CONTRACT to $NETWORK..."
 
