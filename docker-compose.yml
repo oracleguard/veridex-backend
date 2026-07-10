@@ -7,7 +7,7 @@ services:
       POSTGRES_DB: veridex_backend
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -30,7 +30,7 @@ services:
     build: .
     environment:
       NODE_ENV: development
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5433/veridex_backend
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/veridex_backend
       REDIS_URL: redis://redis:6379
       DETECTION_API_URL: http://detection:8000
     ports:
