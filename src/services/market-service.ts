@@ -82,29 +82,29 @@ export class MarketService {
     const losingPredictions = predictions.filter((p) => p.choice !== resolution);
 
     const totalLosingAmount = losingPredictions.reduce(
-      (sum, p) => sum + p.amount,
+      (sum, p) => sum + BigInt(p.amount),
       0n
     );
     const pool = totalLosingAmount;
 
     // Calculate winnings for each winning prediction
     const totalWinningAmount = winningPredictions.reduce(
-      (sum, p) => sum + p.amount,
+      (sum, p) => sum + BigInt(p.amount),
       0n
     );
 
     for (const prediction of winningPredictions) {
       const share = Number(prediction.amount) / Number(totalWinningAmount);
-      const winnings = Math.floor(Number(pool) * share).toString();
+      const winnings = BigInt(Math.floor(Number(pool) * share));
       
-      await predictionRepository.claimWinnings(prediction.id, winnings);
+      await predictionRepository.claimWinnings(prediction.id, winnings.toString());
       
       // Add winnings to user balance
       const user = await userRepository.findByWalletAddress(prediction.walletAddress);
       if (user) {
         await userRepository.incrementBalance(
           prediction.walletAddress,
-          BigInt(prediction.amount) + BigInt(winnings)
+          BigInt(prediction.amount) + winnings
         );
       }
     }
@@ -129,7 +129,7 @@ export class MarketService {
     for (const prediction of predictions) {
       const user = await userRepository.findByWalletAddress(prediction.walletAddress);
       if (user) {
-        await userRepository.incrementBalance(prediction.walletAddress, prediction.amount);
+        await userRepository.incrementBalance(prediction.walletAddress, BigInt(prediction.amount));
       }
     }
 

@@ -86,7 +86,7 @@ router.post("/verify", async (req: AuthRequest, res: Response, next: NextFunctio
 
     return res.json({
       success: true,
-      data: { valid: true, userId: decoded.userId },
+      data: { valid: true, userId: typeof decoded === 'object' ? decoded.userId : decoded },
     });
   } catch (error: any) {
     next(error);

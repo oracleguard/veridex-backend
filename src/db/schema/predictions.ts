@@ -16,7 +16,7 @@ export const predictions = pgTable(
     id: uuid("id").primaryKey().defaultRandom(),
     marketId: uuid("market_id").notNull(),
     walletAddress: varchar("wallet_address", { length: 56 }).notNull(),
-    amount: bigint("amount").notNull(),
+    amount: bigint("amount", { mode: "bigint" }).notNull(),
     choice: varchar("choice", { length: 10 }).notNull(), // "YES" or "NO"
     winnings: numeric("winnings", { precision: 20, scale: 8 }),
     claimed: varchar("claimed", { length: 10 }).default("UNCLAIMED"), // "CLAIMED", "UNCLAIMED", "PENDING"

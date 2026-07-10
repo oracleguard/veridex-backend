@@ -126,7 +126,7 @@ export class PredictionRepository {
           eq(predictions.choice, choice)
         )
       );
-    return result.reduce((sum, p) => sum + p.amount, 0n);
+    return result.reduce((sum, p) => sum + BigInt(p.amount), 0n);
   }
 }
 

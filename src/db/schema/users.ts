@@ -15,7 +15,7 @@ export const users = pgTable(
     username: varchar("username", { length: 255 }),
     email: varchar("email", { length: 255 }).unique(),
     passwordHash: varchar("password_hash", { length: 255 }),
-    balance: bigint("balance").default(0n).notNull(),
+    balance: bigint("balance", { mode: "bigint" }).default(0n).notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
   },

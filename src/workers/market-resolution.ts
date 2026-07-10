@@ -2,11 +2,10 @@ import { Worker, Queue } from "bullmq";
 import { marketService } from "../services/market-service";
 import { fraudService } from "../services/fraud-service";
 import { logger } from "../utils/logger";
-import { Redis } from "ioredis";
+import Redis from "ioredis";
 
-const redis = new Redis({
-  url: process.env.REDIS_URL || "redis://localhost:6379",
-});
+const redisUrl = process.env.REDIS_URL || "redis://localhost:6379";
+const redis = new Redis(redisUrl);
 
 // Create queues
 export const marketResolutionQueue = new Queue("market-resolution", { connection: redis });
