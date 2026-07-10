@@ -1,21 +1,17 @@
-export interface Market {
-  id: string;
-  asset_pair: string;
-  name: string;
-  resolution_date: Date;
-  status: "active" | "resolved" | "voided";
+export interface AuthRequest {
+  userId?: string;
+  walletAddress?: string;
+  token?: string;
 }
 
-export interface Prediction {
-  id: string;
-  market_id: string;
-  wallet_address: string;
-  amount: number;
-  choice: "YES" | "NO";
+export interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  message?: string;
 }
 
-export interface User {
-  address: string;
-  name?: string;
-  created_at: Date;
+export interface PaginationQuery {
+  limit?: number;
+  offset?: number;
 }

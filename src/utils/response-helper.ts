@@ -1,7 +1,21 @@
-export function successResponse(data: any, message: string = "Success") {
-  return { success: true, data, message };
+export interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  message?: string;
 }
 
-export function errorResponse(error: string, details?: any) {
-  return { success: false, error, details };
+export function success<T>(data: T, message?: string): ApiResponse<T> {
+  return {
+    success: true,
+    data,
+    message,
+  };
+}
+
+export function error(message: string): ApiResponse<null> {
+  return {
+    success: false,
+    error: message,
+  };
 }
