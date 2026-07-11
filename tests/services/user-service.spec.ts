@@ -1,9 +1,10 @@
 import { UserService } from "../../src/services/user-service";
 import * as userRepo from "../../src/db/repositories/user-repository";
+import * as fraudRepo from "../../src/db/repositories/fraud-repository";
 
 jest.mock("../../src/db/repositories/user-repository");
+jest.mock("../../src/db/repositories/fraud-repository");
 jest.mock("bcryptjs");
-jest.mock("jsonwebtoken");
 
 describe("UserService", () => {
   let userService: UserService;
@@ -61,6 +62,7 @@ describe("UserService", () => {
       };
 
       (userRepo.userRepository.findByWalletAddress as jest.Mock).mockResolvedValue(mockUser);
+      (fraudRepo.fraudRepository.findByWalletAddress as jest.Mock).mockResolvedValue([]);
 
       const result = await userService.getUserProfile("wallet_address");
 
