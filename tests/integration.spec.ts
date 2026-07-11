@@ -2,7 +2,7 @@ import {
   UserService,
   MarketService,
   PredictionService,
-} from "../../src/services";
+} from "../src/services";
 
 /**
  * Integration Test Scenarios

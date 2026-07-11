@@ -1,9 +1,11 @@
 import { MarketService } from "../../src/services/market-service";
 import * as marketRepo from "../../src/db/repositories/market-repository";
 import * as userRepo from "../../src/db/repositories/user-repository";
+import * as predictionRepo from "../../src/db/repositories/prediction-repository";
 
 jest.mock("../../src/db/repositories/market-repository");
 jest.mock("../../src/db/repositories/user-repository");
+jest.mock("../../src/db/repositories/prediction-repository");
 
 describe("MarketService", () => {
   let marketService: MarketService;
@@ -64,6 +66,7 @@ describe("MarketService", () => {
       };
 
       (marketRepo.marketRepository.findById as jest.Mock).mockResolvedValue(mockMarket);
+      (predictionRepo.predictionRepository.findByMarketId as jest.Mock).mockResolvedValue([]);
       (marketRepo.marketRepository.resolveMarket as jest.Mock).mockResolvedValue({
         ...mockMarket,
         status: "RESOLVED",

@@ -48,9 +48,9 @@ export class UserService {
     return token;
   }
 
-  async verifyJWT(token: string) {
+  async verifyJWT(token: string): Promise<{ userId: string }> {
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET || "secret");
+      const decoded = jwt.verify(token, process.env.JWT_SECRET || "secret") as { userId: string };
       return decoded;
     } catch (error) {
       throw new Error("Invalid token");
